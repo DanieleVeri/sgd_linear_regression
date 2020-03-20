@@ -2,15 +2,17 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-def points_generator(quantity, function, amplitude_noise):
+def points_generator(quantity, function, precision, amplitude_noise):
     np.random.seed(10)
-    X = np.arange(quantity)
-    y = function(X) + (np.random.rand(quantity,)-0.5)*2*amplitude_noise
+    limit = quantity/(2*(10**-precision))
+    #X = np.arange(-limit, limit, 1*10**precision)
+    X = np.arange(0, 2*limit, 1 * 10 ** precision)
+    y = function(X) + (np.random.rand(quantity)-0.5)*2*amplitude_noise
     return X, y
 
 
 def custom_function(X):
-    return 10+8*X+5*X**2
+    return 10000-8*X+5*X**2-2*X**3
 
 
 def stochastic_gradient_descent(X, y, theta, batch_dimension=10, learning_rate=0.00001, iterations=1000, momentum=0):
@@ -28,17 +30,17 @@ def stochastic_gradient_descent(X, y, theta, batch_dimension=10, learning_rate=0
     return theta, error_list, adjust_list
 
 
-
-iter = 100
-X, y = points_generator(50, custom_function, 5e2)
-theta, error_list, adjust_list = stochastic_gradient_descent(X, y, np.array([2, 1, 3]), batch_dimension=20, learning_rate=1e-8, iterations=iter, momentum=0.9)
-print(adjust_list)
+iter = 10000
+X, y = points_generator(int(1e2), custom_function, -0.5, 0)
+theta, error_list, adjust_list = stochastic_gradient_descent(X, y, np.array([100, 1, 3, -2]), batch_dimension=20, learning_rate=1e-10, iterations=iter, momentum=0.2)
 print(theta)
-
+adjust_list = np.array(adjust_list)
 
 x_mat = np.array([X**i for i in range(len(theta))]).T
-plt.plot(X,np.dot(x_mat,theta.T))
-plt.plot(X,y,'.')
+plt.plot(X, np.dot(x_mat, theta.T))
+plt.plot(X, y, '.')
 plt.figure(2)
 plt.plot(np.arange(iter), error_list)
+plt.figure(3)
+plt.plot(np.arange(iter+1), adjust_list)
 plt.show()
