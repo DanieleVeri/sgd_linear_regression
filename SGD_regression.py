@@ -15,10 +15,7 @@ def custom_function(X):
 
 def stochastic_gradient_descent(X, y, theta, batch_dimension=10, learning_rate=0.00001, iterations=1000):
     error_list = []
-    x_mat = np.ones(len(X), dtype=int)
-    for i in range(1,len(theta)):
-        x_mat = np.vstack((x_mat, X**i))
-    x_mat = x_mat.T
+    x_mat = np.array([X**i for i in range(len(theta))]).T
     for it in range(iterations):
         batch = np.random.randint(len(X), size=batch_dimension)
         X_batch = x_mat[batch,:]
@@ -37,14 +34,9 @@ theta, error_list = stochastic_gradient_descent(X, y, np.array([2,1,3]), batch_d
 print(theta)
 
 
-x_mat = np.ones(len(X), dtype=int)
-for i in range(1, len(theta)):
-    x_mat = np.vstack((x_mat, X ** i))
-x_mat = x_mat.T
+x_mat = np.array([X**i for i in range(len(theta))]).T
 plt.plot(X,np.dot(x_mat,theta.T))
 plt.plot(X,y,'.')
 plt.figure(2)
 plt.plot(np.arange(iter), error_list)
 plt.show()
-
-
