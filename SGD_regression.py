@@ -2,17 +2,19 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-def points_generator(quantity, function, precision, amplitude_noise):
+def points_generator(quantity, function, precision, amplitude_noise, only_positive=True):
     np.random.seed(10)
     limit = quantity/(2*(10**-precision))
-    #X = np.arange(-limit, limit, 1*10**precision)
-    X = np.arange(0, 2*limit, 1 * 10 ** precision)
+    if only_positive:
+        X = np.arange(0, 2*limit, 1 * 10 ** precision)
+    else:
+        X = np.arange(-limit, limit, 1 * 10 ** precision)
     y = function(X) + (np.random.rand(quantity)-0.5)*2*amplitude_noise
     return X, y
 
 
 def custom_function(X):
-    return 10000-8*X+5*X**2-2*X**3
+    return 100-8*X
 
 
 def stochastic_gradient_descent(X, y, theta, batch_dimension=10, learning_rate=0.00001, iterations=1000, momentum=0):
@@ -32,7 +34,7 @@ def stochastic_gradient_descent(X, y, theta, batch_dimension=10, learning_rate=0
 
 iter = 10000
 X, y = points_generator(int(1e2), custom_function, -0.5, 0)
-theta, error_list, adjust_list = stochastic_gradient_descent(X, y, np.array([100, 1, 3, -2]), batch_dimension=20, learning_rate=1e-10, iterations=iter, momentum=0.2)
+theta, error_list, adjust_list = stochastic_gradient_descent(X, y, np.array([0, 0]), batch_dimension=20, learning_rate=1e-10, iterations=iter, momentum=0.2)
 print(theta)
 adjust_list = np.array(adjust_list)
 
