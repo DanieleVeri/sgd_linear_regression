@@ -1,11 +1,13 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-def points_generator(quantity, function, precision, amplitude_noise):
+def points_generator(quantity, function, precision, amplitude_noise, only_positive=True):
     np.random.seed(10)
     limit = quantity/(2*(10**-precision))
-    #X = np.arange(-limit, limit, 1*10**precision)
-    X = np.arange(0, 2*limit, 1 * 10 ** precision)
+    if only_positive:
+        X = np.arange(0, 2*limit, 1 * 10 ** precision)
+    else:
+        X = np.arange(-limit, limit, 1 * 10 ** precision)
     y = function(X) + (np.random.rand(quantity)-0.5)*2*amplitude_noise
     return X, y
 
