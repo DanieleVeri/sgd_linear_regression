@@ -6,7 +6,7 @@ def loss_fn(prediction, y):
 
 def stochastic_gradient_descent_adagrad(x, y, batch_dimension, learning_rate, iterations):
     error_list = []
-    diagonal_g = np.zeros(x.shape[1], dtype=int)
+    diagonal_g = np.zeros(x.shape[1]+1, dtype=int)
     x_mat = np.concatenate((np.ones((x.shape[0], 1), dtype=int), x), axis=1)
     coefficients = np.zeros((1+x.shape[1], ), dtype=int)
     for it in range(iterations):

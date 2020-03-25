@@ -17,7 +17,7 @@ x, y = np.array(data.drop(['heating', 'cooling'], axis=1), dtype=float), np.arra
 coefficients, error_list = stochastic_gradient_descent_adagrad(x, y,
     batch_dimension=10,                                  
     learning_rate=50,
-    iterations=50)
+    iterations=500)
 
 print(coefficients)
 print(error_list.pop())
