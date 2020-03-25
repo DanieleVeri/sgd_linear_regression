@@ -1,4 +1,4 @@
-from SGD_regression import stochastic_gradient_descent
+from SGD_regression import *
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -14,9 +14,9 @@ data = data.dropna()
 
 x, y = np.array(data.drop(['heating', 'cooling'], axis=1), dtype=float), np.array(data['heating'], dtype=float)
 
-coefficients, error_list = stochastic_gradient_descent(x, y, 
+coefficients, error_list = stochastic_gradient_descent_adagrad(x, y,
     batch_dimension=10,                                  
-    learning_rate=1e-6, 
+    learning_rate=50,
     iterations=50)
 
 print(coefficients)
