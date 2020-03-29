@@ -21,6 +21,9 @@ coefficients, error_list = stochastic_gradient_descent_adagrad(x, y,
 
 print(coefficients)
 print(error_list.pop())
+# y_mean =
+# data_variance =
+# Rsquared =
 
 x_mat = np.concatenate((np.ones((x.shape[0], 1), dtype=int), x), axis=1)
 plt.plot(x, y.T, '.')
