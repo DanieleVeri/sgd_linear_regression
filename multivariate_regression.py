@@ -19,11 +19,17 @@ coefficients, error_list = stochastic_gradient_descent(x, y,
     learning_rate=1e-6,
     iterations=500)
 
+print(coefficients)
+print(error_list.pop())
+
+plt.plot(np.arange(len(error_list)), error_list)
+plt.show()
+
 # With adagrad variant, smaller error with less iterations
-#coefficients, error_list = stochastic_gradient_descent_adagrad(x, y,
-#    batch_dimension=10,                                  
-#    learning_rate=1,
-#    iterations=100)
+coefficients, error_list = stochastic_gradient_descent_adagrad(x, y,
+   batch_dimension=10,
+   learning_rate=1,
+   iterations=100)
 
 
 print(coefficients)
