@@ -9,19 +9,22 @@ def load_energy_data():
 
 np.random.seed(10)
 
+print("Loading dataset...")
 data = load_energy_data()
 data = data.dropna()
 
 x, y = np.array(data.drop(['heating', 'cooling'], axis=1), dtype=float), np.array(data['heating'], dtype=float)
 
 coefficients, error_list = stochastic_gradient_descent(x, y,
-    batch_dimension=10,                                  
+    batch_dimension=10,
     learning_rate=1e-6,
     iterations=500)
 
-print(coefficients)
-print(error_list.pop())
+print("\nSGD linear regression")
+print("coefficients:", coefficients)
+print("error:", error_list.pop())
 
+plt.figure("error")
 plt.plot(np.arange(len(error_list)), error_list)
 plt.show()
 
@@ -31,9 +34,10 @@ coefficients, error_list = stochastic_gradient_descent_adagrad(x, y,
    learning_rate=1,
    iterations=100)
 
+print("\nSGD linear regression with adagrad")
+print("coefficeints:", coefficients)
+print("error:", error_list.pop())
 
-print(coefficients)
-print(error_list.pop())
-
+plt.figure("error")
 plt.plot(np.arange(len(error_list)), error_list)
 plt.show()

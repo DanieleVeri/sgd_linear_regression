@@ -9,6 +9,7 @@ def load_ocean_data():
 
 np.random.seed(10)
 
+print("Loading dataset...")
 data = load_ocean_data()
 data = data.dropna()
 
@@ -19,30 +20,34 @@ coefficients, error_list = stochastic_gradient_descent(x, y,
     learning_rate=1e-2,
     iterations=5000)
 
-print(coefficients)
-print(error_list.pop())
+print("\nSGD linear regression")
+print("coefficients:", coefficients)
+print("error:", error_list.pop())
 
 x_mat = np.concatenate((np.ones((x.shape[0], 1), dtype=int), x), axis=1)
+plt.figure("data")
 plt.plot(x, y.T, '.')
 plt.plot(x, np.dot(x_mat, coefficients.T))
 
-plt.figure(2)
+plt.figure("error")
 plt.plot(np.arange(len(error_list)), error_list)
 plt.show()
 
-# With adagrad
+# With adagrad using half interations
 coefficients, error_list = stochastic_gradient_descent_adagrad(x, y,
    batch_dimension=int(len(x) / 10000),
    learning_rate=100,
    iterations=2500)
 
-print(coefficients)
-print(error_list.pop())
+print("\nSGD linear regression with adagrad")
+print("coefficients:", coefficients)
+print("error:", error_list.pop())
 
 x_mat = np.concatenate((np.ones((x.shape[0], 1), dtype=int), x), axis=1)
+plt.figure("data")
 plt.plot(x, y.T, '.')
 plt.plot(x, np.dot(x_mat, coefficients.T))
 
-plt.figure(2)
+plt.figure("error")
 plt.plot(np.arange(len(error_list)), error_list)
 plt.show()
