@@ -14,16 +14,16 @@ data = data.dropna()
 
 x, y = np.array(data[['R_TEMP']], dtype=float), np.array(data['R_SALINITY'], dtype=float)
 
-coefficients, error_list = stochastic_gradient_descent(x, y,
-    batch_dimension=int(len(x) / 10000),
-    learning_rate=1e-2,
-    iterations=5000)
+# coefficients, error_list = stochastic_gradient_descent(x, y,
+#     batch_dimension=int(len(x) / 10000),
+#     learning_rate=1e-2,
+#     iterations=5000)
 
 # With adagrad variant, same error with half iterations
-#coefficients, error_list = stochastic_gradient_descent_adagrad(x, y,
-#    batch_dimension=int(len(x) / 10000),
-#    learning_rate=50,
-#    iterations=1000)
+coefficients, error_list = stochastic_gradient_descent_adagrad(x, y,
+   batch_dimension=int(len(x) / 10000),
+   learning_rate=50,
+   iterations=5000)
 
 
 print(coefficients)
